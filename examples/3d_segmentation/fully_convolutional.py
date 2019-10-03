@@ -166,9 +166,8 @@ for epoch in range(p['epoch'], p['n_epochs'] + 1):
     print('train epoch', epoch, 1, 'iou=', r['iou'], 'MegaMulAdd=',
           scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6, 'MegaHidden',
           scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6, 'time=', time.time() - start, 's')
-    textfile.write('train epoch' + epoch+ 1+ 'iou='+ r['iou']+ 'MegaMulAdd='+
-          scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6+ 'MegaHidden'+
-          scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6+ 'elapsed time='+ time.time() - start+ 's\n')
+    textfile.write('train epoch: %i, iou=%0.2f, MegaMulAdd=%0.2f, MegaHidden=%0.2f, elapsed time=%0.2f\n'
+                   %(epoch, r['iou'], scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6, scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6, time.time() - start))
 
     if p['check_point']:
         torch.save(epoch, 'epoch.pth')
@@ -192,9 +191,9 @@ for epoch in range(p['epoch'], p['n_epochs'] + 1):
             print('valid epoch', epoch, rep, 'iou=', r['iou'], 'MegaMulAdd=',
                   scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6, 'MegaHidden',
                   scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6, 'time=', time.time() - start, 's')
-            textfile.write('valid epoch'+ epoch+ rep+ 'iou='+ r['iou']+ 'MegaMulAdd='+
-                  scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6+ 'MegaHidden'+
-                  scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6+ 'elapsed time='+ time.time() - start+ 's\n')
+            textfile.write('train epoch: %i, iou=%0.2f, MegaMulAdd=%0.2f, MegaHidden=%0.2f, elapsed time=%0.2f\n'
+                           % (epoch, r['iou'], scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6,
+                              scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6, time.time() - start))
         print(r['iou_all'])
         textfile.write(r['iou_all'] + '\n')
         textfile.write('total elapsed time: %s\n' % (time.time() - totalStart))
