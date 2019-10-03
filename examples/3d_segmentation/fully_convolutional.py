@@ -195,6 +195,7 @@ for epoch in range(p['epoch'], p['n_epochs'] + 1):
                            % (epoch, r['iou'], scn.forward_pass_multiplyAdd_count / r['nmodels_sum'] / 1e6,
                               scn.forward_pass_hidden_states / r['nmodels_sum'] / 1e6, time.time() - start))
         print(r['iou_all'])
-        textfile.write(r['iou_all'] + '\n')
+        textfile.write('iou_all=%0.2f\n' % r['iou_all'])
+        print('total elapsed time: %s\n' % (time.time() - totalStart))
         textfile.write('total elapsed time: %s\n' % (time.time() - totalStart))
         textfile.close()
